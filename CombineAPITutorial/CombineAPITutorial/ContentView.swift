@@ -40,6 +40,14 @@ struct ContentView: View {
             })
             .padding()
             .background(RoundedRectangle(cornerRadius: 10).fill(Color.gray))
+            
+            Button(action: {
+                self.viewModel.fetchTodosAndThenPost()
+            }, label: {
+                Text("Todos 호출 후 응답으로 Posts 호출").foregroundColor(.white)
+            })
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color.gray))
         }
     }
 }
