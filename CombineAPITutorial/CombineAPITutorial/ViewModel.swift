@@ -21,7 +21,7 @@ class ViewModel: ObservableObject {
                     print("ViewModel - fetchTodos: finished")
                 }
             } receiveValue: { todos in
-                print("ViewModel - fetchTodos: todos: \(todos)")
+                print("ViewModel - fetchTodos: todos.count: \(todos.count)")
             }.store(in: &subscriptions)
     }
 }
