@@ -24,4 +24,18 @@ class ViewModel: ObservableObject {
                 print("ViewModel - fetchTodos: todos.count: \(todos.count)")
             }.store(in: &subscriptions)
     }
+    
+    func fetchPosts() {
+        APIService.fetchPosts()
+            .sink { completion in
+                switch completion {
+                case .failure(let err):
+                    print("ViewModel - fetchPosts: err: \(err)")
+                case .finished:
+                    print("ViewModel - fetchPosts: finished")
+                }
+            } receiveValue: { posts in
+                print("ViewModel - fetchPosts: posts.count: \(posts.count)")
+            }.store(in: &subscriptions)
+    }
 }
