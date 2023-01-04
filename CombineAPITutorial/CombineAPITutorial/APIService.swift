@@ -57,4 +57,15 @@ enum APIService {
             return fetchPosts(todos.count).eraseToAnyPublisher()
         }.eraseToAnyPublisher()
     }
+    
+    /// Todos 호출 뒤에 그 결과로 특정 조건이 성립되면 Posts 호출
+    /// - Returns:
+    static func fetchTodosAndThenPostsConditionally() -> AnyPublisher<[Post], Error> {
+        return fetchTodos()
+            .map { $0.count }
+            .filter { $0 < 200 }
+            .flatMap { _ in
+                return fetchPosts().eraseToAnyPublisher()
+            }.eraseToAnyPublisher()
+    }
 }
