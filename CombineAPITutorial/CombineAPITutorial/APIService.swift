@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import Alamofire
 
 enum API {
     case fetchTodos // 할 일 가져오기
@@ -30,25 +31,46 @@ enum APIService {
     // static : 객체 인스턴스를 만들지 않아도 함수를 호출할 수 있음
     static func fetchTodos() -> AnyPublisher<[Todo], Error> {
         print("APIService - fetchTodos()")
-        return URLSession.shared.dataTaskPublisher(for: API.fetchTodos.url)
-            .map { $0.data }
-            .decode(type: [Todo].self, decoder: JSONDecoder())
+//        return URLSession.shared.dataTaskPublisher(for: API.fetchTodos.url)
+//            .map { $0.data }
+//            .decode(type: [Todo].self, decoder: JSONDecoder())
+//            .eraseToAnyPublisher()
+        return AF.request(API.fetchTodos.url)
+            .publishDecodable(type: [Todo].self)
+            .value()
+            .mapError { (afError: AFError) in
+                return afError as Error
+            }
             .eraseToAnyPublisher()
     }
     
     static func fetchPosts(_ todosCount: Int = 0) -> AnyPublisher<[Post], Error> {
         print("APIService - fetchPosts() todosCount: \(todosCount)")
-        return URLSession.shared.dataTaskPublisher(for: API.fetchPosts.url)
-            .map { $0.data }
-            .decode(type: [Post].self, decoder: JSONDecoder())
+//        return URLSession.shared.dataTaskPublisher(for: API.fetchPosts.url)
+//            .map { $0.data }
+//            .decode(type: [Post].self, decoder: JSONDecoder())
+//            .eraseToAnyPublisher()
+        return AF.request(API.fetchPosts.url)
+            .publishDecodable(type: [Post].self)
+            .value()
+            .mapError { (afError: AFError) in
+                return afError as Error
+            }
             .eraseToAnyPublisher()
     }
     
     static func fetchUsers() -> AnyPublisher<[User], Error> {
         print("APIService - fetchUsers()")
-        return URLSession.shared.dataTaskPublisher(for: API.fetchUsers.url)
-            .map { $0.data }
-            .decode(type: [User].self, decoder: JSONDecoder())
+//        return URLSession.shared.dataTaskPublisher(for: API.fetchUsers.url)
+//            .map { $0.data }
+//            .decode(type: [User].self, decoder: JSONDecoder())
+//            .eraseToAnyPublisher()
+        return AF.request(API.fetchUsers.url)
+            .publishDecodable(type: [User].self)
+            .value()
+            .mapError { (afError: AFError) in
+                return afError as Error
+            }
             .eraseToAnyPublisher()
     }
     
