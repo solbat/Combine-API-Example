@@ -48,4 +48,12 @@ enum APIService {
         
         return Publishers.CombineLatest(fetchedTodos, fetchedPosts).eraseToAnyPublisher()
     }
+    
+    /// Todos 호출 뒤에 그 결과로 Posts 호출
+    /// - Returns:
+    static func fetchTodosAndThenPosts() -> AnyPublisher<[Post], Error> {
+        return fetchTodos().flatMap { todos in
+            return fetchPosts(todos.count).eraseToAnyPublisher()
+        }.eraseToAnyPublisher()
+    }
 }
