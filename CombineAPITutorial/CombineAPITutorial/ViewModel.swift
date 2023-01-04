@@ -52,4 +52,18 @@ class ViewModel: ObservableObject {
                 print("ViewModel - fetchTodosAndPostsAtTheSameTime: todos.count: \(todos.count), posts.count: \(posts.count)")
             }.store(in: &subscriptions)
     }
+    
+    func fetchTodosAndThenPost() {
+        APIService.fetchTodosAndThenPosts()
+            .sink { completion in
+                switch completion {
+                case .failure(let err):
+                    print("ViewModel - fetchTodosAndThenPosts: err: \(err)")
+                case .finished:
+                    print("ViewModel - fetchTodosAndThenPosts: finished")
+                }
+            } receiveValue: { posts in
+                print("ViewModel - fetchTodosAndThenPosts: posts.count: \(posts.count)")
+            }.store(in: &subscriptions)
+    }
 }
