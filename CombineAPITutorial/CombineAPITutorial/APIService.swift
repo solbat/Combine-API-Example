@@ -26,6 +26,7 @@ enum API {
 enum APIService {
     // static : 객체 인스턴스를 만들지 않아도 함수를 호출할 수 있음
     static func fetchTodos() -> AnyPublisher<[Todo], Error> {
+        print("APIService - fetchTodos()")
         return URLSession.shared.dataTaskPublisher(for: API.fetchTodos.url)
             .map { $0.data }
             .decode(type: [Todo].self, decoder: JSONDecoder())
