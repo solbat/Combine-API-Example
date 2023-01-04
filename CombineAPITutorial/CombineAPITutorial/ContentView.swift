@@ -24,6 +24,14 @@ struct ContentView: View {
             })
             .padding()
             .background(RoundedRectangle(cornerRadius: 10).fill(Color.gray))
+            
+            Button(action: {
+                self.viewModel.fetchPosts()
+            }, label: {
+                Text("Posts 호출").foregroundColor(.white)
+            })
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color.gray))
         }
     }
 }
