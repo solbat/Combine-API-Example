@@ -66,4 +66,18 @@ class ViewModel: ObservableObject {
                 print("ViewModel - fetchTodosAndThenPosts: posts.count: \(posts.count)")
             }.store(in: &subscriptions)
     }
+    
+    func fetchTodosAndThenPostsConditionally() {
+        APIService.fetchTodosAndThenPostsConditionally()
+            .sink { completion in
+                switch completion {
+                case .failure(let err):
+                    print("ViewModel - fetchTodosAndThenPostsConditionally: err: \(err)")
+                case .finished:
+                    print("ViewModel - fetchTodosAndThenPostsConditionally: finished")
+                }
+            } receiveValue: { posts in
+                print("ViewModel - fetchTodosAndThenPostsConditionally: posts.count: \(posts.count)")
+            }.store(in: &subscriptions)
+    }
 }
