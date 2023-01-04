@@ -56,6 +56,14 @@ struct ContentView: View {
             })
             .padding()
             .background(RoundedRectangle(cornerRadius: 10).fill(Color.gray))
+            
+            Button(action: {
+                self.viewModel.fetchTodosAndAPICallConditionally()
+            }, label: {
+                Text("Todos 호출 후 응답 결과에 따라 호출 API 분기 처리").foregroundColor(.white)
+            })
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color.gray))
         }
     }
 }
