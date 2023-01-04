@@ -34,7 +34,7 @@ enum APIService {
     }
     
     static func fetchPosts(_ todosCount: Int = 0) -> AnyPublisher<[Post], Error> {
-        print("fetchPosts todosCount: \(todosCount)")
+        print("APIService - fetchPosts() todosCount: \(todosCount)")
         return URLSession.shared.dataTaskPublisher(for: API.fetchPosts.url)
             .map { $0.data }
             .decode(type: [Post].self, decoder: JSONDecoder())
