@@ -17,12 +17,14 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            Button(action: {
+                self.viewModel.fetchTodos()
+            }, label: {
+                Text("Todos 호출").foregroundColor(.white)
+            })
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color.gray))
         }
-        .padding()
     }
 }
 
