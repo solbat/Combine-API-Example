@@ -80,4 +80,42 @@ class ViewModel: ObservableObject {
                 print("ViewModel - fetchTodosAndThenPostsConditionally: posts.count: \(posts.count)")
             }.store(in: &subscriptions)
     }
+    
+    func fetchTodosAndAPICallConditionally() {
+        let shouldFetchPosts: AnyPublisher<Bool, Error> =
+            APIService.fetchTodos()
+                .map { todos in
+                    return todos.count < 200
+                }.eraseToAnyPublisher()
+        
+        shouldFetchPosts
+            .filter { $0 == true }
+            .flatMap { _ in
+                return APIService.fetchPosts()
+            }.sink { completion in
+                switch completion {
+                case .failure(let err):
+                    print("ViewModel - fetchTodosAndAPICallConditionally: err: \(err)")
+                case .finished:
+                    print("ViewModel - fetchTodosAndAPICallConditionally: finished")
+                }
+            } receiveValue: { posts in
+                print("ViewModel - fetchTodosAndAPICallConditionally: posts.count: \(posts.count)")
+            }.store(in: &subscriptions)
+        
+        shouldFetchPosts
+            .filter { $0 != true }
+            .flatMap { _ in
+                return APIService.fetchUsers()
+            }.sink { completion in
+                switch completion {
+                case .failure(let err):
+                    print("ViewModel - fetchTodosAndAPICallConditionally: err: \(err)")
+                case .finished:
+                    print("ViewModel - fetchTodosAndAPICallConditionally: finished")
+                }
+            } receiveValue: { users in
+                print("ViewModel - fetchTodosAndAPICallConditionally: users.count: \(users.count)")
+            }.store(in: &subscriptions)
+    }
 }
