@@ -61,8 +61,8 @@
 			children = (
 				CE874F222965457100A2EFBA /* CombineAPITutorialApp.swift */,
 				CE874F242965457100A2EFBA /* ContentView.swift */,
-				CE874F342965555C00A2EFBA /* APIService.swift */,
 				CE874F36296556A700A2EFBA /* ViewModel.swift */,
+				CE874F342965555C00A2EFBA /* APIService.swift */,
 				CE874F302965551100A2EFBA /* Todo.swift */,
 				CE874F322965554000A2EFBA /* Post.swift */,
 				CE874F262965457300A2EFBA /* Assets.xcassets */,
